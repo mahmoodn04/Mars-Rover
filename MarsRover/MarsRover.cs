@@ -6,7 +6,9 @@ using System.Linq;
 namespace MarsRover
 {
     public class MarsRover
-    {
+            {
+        private int h = 10; //The hight of the grid 
+        private int w = 10; //The width of the grid 
         private int X = 0;
         private int Y = 0;
         private string facing = "N";
@@ -17,6 +19,14 @@ namespace MarsRover
 
             foreach (char moveChar in move)
             {
+                if(X >= w)
+                {
+                    X = 0;
+                }
+                if(Y >= h)
+                {
+                    Y = 0;
+                }
                 if (moveChar == 'L')
                 {
                     facing = gotoleft(facing);
@@ -101,3 +111,4 @@ namespace MarsRover
         }
     }
 }
+

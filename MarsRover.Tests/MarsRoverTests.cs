@@ -116,6 +116,16 @@ namespace MarsRover.Tests
             // Then
             Assert.Equal(marsRover.position(), "0:1:N");
         }
+        [Fact]
+        public void ShouldGivePositionWhenMarsMoveRMMMMMMMMMMM0_1_N()
+        {
+            // Given
+            MarsRover marsRover = new MarsRover();
+            // When
+            marsRover.move("RMMMMMMMMMMM");
+            // Then
+            Assert.Equal(marsRover.position(), "1:0:E");
+        }
 
     }
 }
