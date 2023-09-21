@@ -10,7 +10,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionOfTheStartOnMars0_0_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("");
             // Then
@@ -20,7 +20,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveToNorthOneTime0_1_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("M");
             // Then
@@ -30,7 +30,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveToNorthTwoTimes0_2_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("MM");
             // Then
@@ -40,7 +40,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveToNorthTwoTimesMinus2_0_W()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("LMM");
             // Then
@@ -50,7 +50,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveToNorthTwoTimes2_0_E()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("RMM");
             // Then
@@ -60,7 +60,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveToNorthTwoTimes0_minus2_S()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("LLMM");
             // Then
@@ -70,7 +70,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveMMRMMLM2_3_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("MMRMMLM");
             // Then
@@ -80,7 +80,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveLLLM1_0_E()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("LLLM");
             // Then
@@ -90,7 +90,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveRRM00_minus1_S()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("RRM");
             // Then
@@ -100,7 +100,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveRRRMminus1_0_W()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("RRRM");
             // Then
@@ -110,7 +110,7 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveRRRRM0_1_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("RRRRM");
             // Then
@@ -120,11 +120,21 @@ namespace MarsRover.Tests
         public void ShouldGivePositionWhenMarsMoveRMMMMMMMMMMM0_1_N()
         {
             // Given
-            MarsRover marsRover = new MarsRover();
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
             // When
             marsRover.move("RMMMMMMMMMMM");
             // Then
             Assert.Equal(marsRover.position(), "1:0:E");
+        }
+        [Fact]
+        public void ShouldGivePositionWhenMarsMoveWithAnObstacle0_2_N()
+        {
+            // Given
+            MarsRover marsRover = new MarsRover(0, 0, 10, 10);
+            // When
+            marsRover.move("MMM");
+            // Then
+            Assert.Equal("0:2:N", marsRover.position());
         }
 
     }

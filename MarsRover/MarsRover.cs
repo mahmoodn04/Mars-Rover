@@ -6,12 +6,26 @@ using System.Linq;
 namespace MarsRover
 {
     public class MarsRover
-            {
-        private int h = 10; //The hight of the grid 
-        private int w = 10; //The width of the grid 
-        private int X = 0;
-        private int Y = 0;
-        private string facing = "N";
+    {
+        private int h; //The hight of the grid 
+        private int w; //The width of the grid 
+        private int X;
+        private int Y;
+
+        public MarsRover(int x, int y, int H, int W)
+        {
+            X = x;
+            Y = y;
+            h = H;
+            w = W;
+
+        }
+
+
+        private char facing = 'N';
+        private int x_obstacle = 0;
+        private int y_obstacle = 3;
+
         public void move(string move)
         {
 
@@ -19,14 +33,15 @@ namespace MarsRover
 
             foreach (char moveChar in move)
             {
-                if(X >= w)
+                if (X >= w)
                 {
                     X = 0;
                 }
-                if(Y >= h)
+                if (Y >= h)
                 {
                     Y = 0;
                 }
+
                 if (moveChar == 'L')
                 {
                     facing = gotoleft(facing);
@@ -34,7 +49,7 @@ namespace MarsRover
 
                 else if (moveChar == 'R')
                 {
-                   facing = gotoright(facing);
+                    facing = gotoright(facing);
                 }
                 else if (moveChar == 'M')
                 {
@@ -44,64 +59,80 @@ namespace MarsRover
 
 
         }
-        private string gotoleft(string facing)
+        private char gotoleft(char facing)
         {
-            if (facing == "N")
-                {
-                    return "W";
-                }
-                else if (facing == "W")
-                {
-                    return "S";
-                }
-                else if (facing == "E")
-                {
-                    return "N";
-                }
-                else if (facing == "S")
-                {
-                    return "E";
-                }
-                return "N";
-        }
-        private string gotoright(string facing)
-        {
-            if (facing == "N")
+            if (facing == 'N')
             {
-                return  "E";
+                return 'W';
+            }
+            else if (facing == 'W')
+            {
+                return 'S';
+            }
+            else if (facing == 'E')
+            {
+                return 'N';
+            }
+            else if (facing == 'S')
+            {
+                return 'E';
+            }
+            return 'N';
+        }
+        private char gotoright(char facing)
+        {
+            if (facing == 'N')
+            {
+                return 'E';
             }
 
-            else if (facing == "E")
+            else if (facing == 'E')
             {
-                return "S";
+                return 'S';
             }
-            else if (facing == "S")
+            else if (facing == 'S')
             {
-                return "W";
+                return 'W';
             }
-            else if (facing == "W")
+            else if (facing == 'W')
             {
-                return "N";
+                return 'N';
             }
-            return "N";
+            return 'N';
         }
-        private void gotomovement(string facing)
+        private void gotomovement(char facing)
         {
-            if (facing == "W")
+            if (facing == 'W')
             {
                 X--;
+                if (X == x_obstacle && Y == y_obstacle)
+                {
+                    X++;
+                }
             }
-            else if (facing == "N")
+            else if (facing == 'N')
             {
                 Y++;
+                if (X == x_obstacle && Y == y_obstacle)
+                {
+                    Y--;
+                }
             }
-            else if (facing == "E")
+            else if (facing == 'E')
             {
                 X++;
+                if (X == x_obstacle && Y == y_obstacle)
+                {
+                    X--;
+                }
             }
-            else if (facing == "S")
+            else if (facing == 'S')
             {
                 Y--;
+                if (X == x_obstacle && Y == y_obstacle)
+                {
+                    Y++;
+                }
             }
         }
 
