@@ -7,24 +7,30 @@ namespace MarsRover
 {
     public class MarsRover
     {
-        private int h; //The hight of the grid 
-        private int w; //The width of the grid 
-        private int X;
-        private int Y;
 
-        public MarsRover(int x, int y, int H, int W)
+        public int h; //The hight of the grid 
+        public int w; //The width of the grid 
+        public int x;
+        public int y;
+
+        List<Tuple<int, int>> obstacle;
+        public MarsRover(Grid grid)
         {
-            X = x;
-            Y = y;
-            h = H;
-            w = W;
-
+            x = grid.x;
+            y = grid.y;
+            h = grid.h;
+            w = grid.w;
+            obstacle = new List<Tuple<int, int>>();
+            foreach (var xy in grid.obstacle)
+            {
+                obstacle.Add(xy);
+            }
         }
 
 
+
         private char facing = 'N';
-        private int x_obstacle = 0;
-        private int y_obstacle = 3;
+
 
         public void move(string move)
         {
@@ -33,13 +39,13 @@ namespace MarsRover
 
             foreach (char moveChar in move)
             {
-                if (X >= w)
+                if (x >= w)
                 {
-                    X = 0;
+                    x = 0;
                 }
-                if (Y >= h)
+                if (y >= h)
                 {
-                    Y = 0;
+                    y = 0;
                 }
 
                 if (moveChar == 'L')
@@ -100,45 +106,54 @@ namespace MarsRover
             }
             return 'N';
         }
+        private bool isMyRoverIsOnObstacle()
+        {
+             bool isOnobstacle = false;
+            foreach(var o in obstacle)
+            {
+               isOnobstacle = isOnobstacle || (x == o.Item1 && y == o.Item2);
+            }
+            return isOnobstacle;
+        }
         private void gotomovement(char facing)
         {
             if (facing == 'W')
             {
-                X--;
-                if (X == x_obstacle && Y == y_obstacle)
+                x--;
+                if (isMyRoverIsOnObstacle())
                 {
-                    X++;
+                    x++;
                 }
             }
             else if (facing == 'N')
             {
-                Y++;
-                if (X == x_obstacle && Y == y_obstacle)
+                y++;
+                if (isMyRoverIsOnObstacle())
                 {
-                    Y--;
+                    y--;
                 }
             }
             else if (facing == 'E')
             {
-                X++;
-                if (X == x_obstacle && Y == y_obstacle)
+                x++;
+                if (isMyRoverIsOnObstacle())
                 {
-                    X--;
+                    x--;
                 }
             }
             else if (facing == 'S')
             {
-                Y--;
-                if (X == x_obstacle && Y == y_obstacle)
+                y--;
+                if (isMyRoverIsOnObstacle())
                 {
-                    Y++;
+                    y++;
                 }
             }
         }
 
         public string position()
         {
-            return X + ":" + Y + ":" + facing;
+            return x + ":" + y + ":" + facing;
         }
     }
 }
