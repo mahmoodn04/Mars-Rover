@@ -7,12 +7,10 @@ namespace MarsRover
 {
     public class MarsRover
     {
-
         public int h; //The hight of the grid 
         public int w; //The width of the grid 
         public int x;
         public int y;
-
         List<Tuple<int, int>> obstacle;
         public MarsRover(Grid grid)
         {
@@ -26,127 +24,94 @@ namespace MarsRover
                 obstacle.Add(xy);
             }
         }
-
-
-
         private char facing = 'N';
 
 
         public void move(string move)
         {
-
-
-
             foreach (char moveChar in move)
             {
-                if (x >= w)
-                {
-                    x = 0;
-                }
-                if (y >= h)
-                {
-                    y = 0;
-                }
+                x = (x >= w) ? x = 0 : x;
+                y = (y >= h) ? y = 0 : y;
 
-                if (moveChar == 'L')
+                switch (moveChar)
                 {
-                    facing = gotoleft(facing);
-                }
-
-                else if (moveChar == 'R')
-                {
-                    facing = gotoright(facing);
-                }
-                else if (moveChar == 'M')
-                {
-                    gotomovement(facing);
+                    case 'L':
+                        facing = gotoleft(facing);
+                        break;
+                    case 'R':
+                        facing = gotoright(facing);
+                        break;
+                    default:
+                        gotomovement(facing);
+                        break;
                 }
             }
-
-
         }
         private char gotoleft(char facing)
         {
-            if (facing == 'N')
+            switch (facing)
             {
-                return 'W';
+                case 'N':
+                    return 'W';
+                    break;
+                case 'W':
+                    return 'S';
+                    break;
+                case 'E':
+                    return 'N';
+                    break;
+                case 'S':
+                    return 'E';
+                    break;
+                default:
+                    return 'N';
+                    break;
             }
-            else if (facing == 'W')
-            {
-                return 'S';
-            }
-            else if (facing == 'E')
-            {
-                return 'N';
-            }
-            else if (facing == 'S')
-            {
-                return 'E';
-            }
-            return 'N';
         }
         private char gotoright(char facing)
         {
-            if (facing == 'N')
+            switch (facing)
             {
-                return 'E';
+                case 'N':
+                    return 'E';
+                    break;
+                case 'W':
+                    return 'N';
+                    break;
+                case 'E':
+                    return 'S';
+                    break;
+                case 'S':
+                    return 'W';
+                    break;
+                default:
+                    return 'N';
+                    break;
             }
-
-            else if (facing == 'E')
-            {
-                return 'S';
-            }
-            else if (facing == 'S')
-            {
-                return 'W';
-            }
-            else if (facing == 'W')
-            {
-                return 'N';
-            }
-            return 'N';
         }
         private bool isMyRoverIsOnObstacle()
         {
-             bool isOnobstacle = false;
-            foreach(var o in obstacle)
+            bool isOnobstacle = false;
+            foreach (var o in obstacle)
             {
-               isOnobstacle = isOnobstacle || (x == o.Item1 && y == o.Item2);
+                isOnobstacle = isOnobstacle || (x == o.Item1 && y == o.Item2);
             }
             return isOnobstacle;
         }
         private void gotomovement(char facing)
         {
-            if (facing == 'W')
-            {
-                x--;
-                if (isMyRoverIsOnObstacle())
-                {
-                    x++;
-                }
-            }
-            else if (facing == 'N')
+            if (facing == 'W') x = isMyRoverIsOnObstacle() ? x : x - 1;
+            // if (facing == 'N') y = isMyRoverIsOnObstacle() ? y : y + 1;
+            if (facing == 'E') x = isMyRoverIsOnObstacle() ? x : x + 1;
+            if (facing == 'S') y = isMyRoverIsOnObstacle() ? y : y - 1;
+
+            if (facing == 'N')
             {
                 y++;
                 if (isMyRoverIsOnObstacle())
                 {
                     y--;
-                }
-            }
-            else if (facing == 'E')
-            {
-                x++;
-                if (isMyRoverIsOnObstacle())
-                {
-                    x--;
-                }
-            }
-            else if (facing == 'S')
-            {
-                y--;
-                if (isMyRoverIsOnObstacle())
-                {
-                    y++;
                 }
             }
         }
